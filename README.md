@@ -28,10 +28,10 @@ table "songs"
 
 1. Make Model for Models, DB, Association
 
-rails g model Artist name:string bio:text --no-test-framework
-rails g model Genre name:string --no-test-framework
-rails g model Song name:string --no-test-framework
-rake db:migrate
+`rails g model Artist name:string bio:text --no-test-framework`
+`rails g model Genre name:string --no-test-framework`
+`rails g model Song name:string --no-test-framework`
+`rake db:migrate`
 
 * A song belongs to an artist
 * A song belongs to a genre
@@ -60,13 +60,14 @@ end
 ```
 
 * A song belongs to an artist
-rails g migration AddArtistToSong artist:belongs_to
+`rails g migration AddArtistToSong artist:belongs_to`
 
 * A song belongs to a genre
-rails g migration AddGenreToSong genre:belongs_to
-rake db:migrate
+`rails g migration AddGenreToSong genre:belongs_to`
+`rake db:migrate`
 
 2. Make Controller for Controllers, Routes, Views
-rails g controller songs index show new create edit update --no-test-framework
-rails g controller genres index show new create edit update --no-test-framework
-rails g controller artists index show new create edit update --no-test-framework
+
+`rails g controller songs index show new create edit update --no-test-framework`
+`rails g controller genres index show new create edit update --no-test-framework`
+`rails g controller artists index show new create edit update --no-test-framework`
