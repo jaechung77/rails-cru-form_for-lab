@@ -1,23 +1,6 @@
 # CRU with form_for Lab
 
-## Objectives
-
-1. Build RESTful actions for index, show, new, create, edit, update
-2. Use form_for for all forms (no need to share forms or partials)
-3. Correctly redirect when needed
-4. Interlink between pages using route helpers
-
-## Instructions
-
-You've been tasked with building a Rails app called **Beats by Rails**, the app will need to have three separate models:
-
-* Songs
-
-* Artists
-
-* Genres
-
-The data relationship will look something like this:
+## Requirement
 
 * A song belongs to an artist
 
@@ -26,11 +9,6 @@ The data relationship will look something like this:
 * A genre has many songs
 
 * An artist has many songs
-
-
-The tests are in the `spec/features` directory for each model. You will need to build in the ability to `create`, `update`, and `show` for each model. And for the song `show` page you need to have it display each of the song's genre and artist, and link to the respective genre and artist `show` pages.
-
-The database tables should look like this (note each column type):
 
 ```db
 table "artists"
@@ -46,12 +24,49 @@ table "songs"
   integer  "genre_id"
 ```
 
-## Key notes to remember
+## Solution
 
-* You will need to use [strong params](https://github.com/learn-co-curriculum/strong-params-basics)
+1. Make Model for Models, DB, Association
 
-* Don't worry about integrating drop down form elements for the genre and artist selections on the song form pages yet, simply enter in the ID in for each element
+rails g model Artist name:string bio:text --no-test-framework
+rails g model Genre name:string --no-test-framework
+rails g model Song name:string --no-test-framework
+rake db:migrate
 
-* You can use the `resource`, `model`, `migration`, and `controller` generators, but do not use the `scaffold` generator
-*Top Tip: Remember to use the --no-test-framework flag when generating models and controllers to avoid generating unnecessary testing frameworks!*
+* A song belongs to an artist
+* A song belongs to a genre
 
+```
+class Song < ApplicationRecord
+    belongs_to :artist
+    belongs_to :genre
+end
+```
+
+* A genre has many songs
+
+```
+class Genre < ApplicationRecord
+    has_many :songs
+end
+```
+
+* An artist has many songs
+
+```
+class Artist < ApplicationRecord
+    has_many :songs
+end
+```
+
+* A song belongs to an artist
+rails g migration AddArtistToSong artist:belongs_to
+
+* A song belongs to a genre
+rails g migration AddGenreToSong genre:belongs_to
+rake db:migrate
+
+2. Make Controller for Controllers, Routes, Views
+rails g controller songs index show new create edit update --no-test-framework
+rails g controller genres index show new create edit update --no-test-framework
+rails g controller artists index show new create edit update --no-test-framework
